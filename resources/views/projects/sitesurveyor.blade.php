@@ -18,6 +18,7 @@
             <strong>AI Automation &amp; Solana Blockchain for Surveying Systems</strong> &mdash; SiteSurveyor is a framework for developing surveying software. It uses Tauri for cross-platform applications, the Solana blockchain for data integrity, and OpenClaw AI for automation. The framework provides tools for project planning, coordinate geometry computations, and secure file storage.
           </p>
           <div class="hero-actions" style="margin-top: 2rem;">
+            <a href="https://sitesurveyor.eineva.co.zw" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" target="_blank" rel="noopener">View Site</a>
             <a href="{{ route('contact') }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">View on GitHub</a>
           </div>
         </div>

@@ -20,6 +20,7 @@
             <strong>AI-Powered Enterprise Intelligence System</strong> &mdash; BizIntel is an open-source enterprise intelligence platform built on the SiteSurveyor architecture. Using Rust, WebAssembly, and Tauri, it integrates business and geospatial analysis with OpenClaw AI and the Solana blockchain to monitor markets and track operational data.
           </p>
           <div class="hero-actions" style="margin-top: 2rem;">
+            <a href="https://bizintel.eineva.co.zw" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" target="_blank" rel="noopener">View Site</a>
             <a href="{{ route('contact') }}" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Get in touch</a>
           </div>
         </div>
