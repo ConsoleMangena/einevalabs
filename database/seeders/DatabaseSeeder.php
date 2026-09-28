@@ -25,6 +25,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Database seeding logic goes here
+        \App\Models\User::updateOrCreate(
+            ['email' => 'admin@eineva.co.zw'],
+            [
+                'name' => 'Admin',
+                'password' => \Illuminate\Support\Facades\Hash::make('Laritabragosta'),
+            ]
+        );
     }
 }
