@@ -88,11 +88,11 @@
               </div>
             </a>
         @endif
-      </div>
       <button class="topbar__theme" id="thbtn" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">
         <svg class="topbar__theme-icon topbar__theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
         <svg class="topbar__theme-icon topbar__theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6 8.6 8.6 0 1 0 20.4 14.2Z"/></svg>
       </button>
+      </div>
     </div>
   </nav>
   <div class="container">
