@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Post::truncate();
-        Post::factory(5)->create();
+        // Database seeding logic goes here
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->nullable();
             $table->json('specs')->nullable();
             $table->string('image_url')->nullable();
+            $table->json('images')->nullable();
             $table->timestamps();
         });
     }
