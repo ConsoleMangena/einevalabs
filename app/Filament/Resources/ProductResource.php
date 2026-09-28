@@ -40,11 +40,11 @@ class ProductResource extends Resource
                     ->numeric()
                     ->default(null)
                     ->prefix('$'),
-                Forms\Components\Textarea::make('specs')
+                Forms\Components\KeyValue::make('specs')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image_url')
                     ->image(),
-                Forms\Components\Textarea::make('images')
+                Forms\Components\FileUpload::make('images')->image()->multiple()
                     ->columnSpanFull(),
             ]);
     }
@@ -101,3 +101,4 @@ class ProductResource extends Resource
         ];
     }
 }
+

@@ -3,6 +3,11 @@
 @section('title', $product->name . ' - The Bench | EINEVA Labs')
 @section('description', \Illuminate\Support\Str::limit($product->description, 150))
 
+@php
+    if (!is_array($product->specs)) $product->specs = [];
+    if (!is_array($product->images)) $product->images = [];
+@endphp
+
 @section('content')
 <style>
     .product-detail {
@@ -151,7 +156,7 @@
                 {{ $product->description }}
             </div>
 
-            @if($product->specs && count($product->specs) > 0)
+            @if(is_array($product->specs) && count($product->specs) > 0)
                 <h3 style="font-family: var(--font-heading); margin-bottom: 1rem; font-size: 1.25rem;">Technical Specifications</h3>
                 <table class="specs-table">
                     <tbody>
