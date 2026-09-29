@@ -38,6 +38,23 @@ return [
     'pesepay' => [
         'integration_key' => env('PESEPAY_INTEGRATION_KEY'),
         'encryption_key' => env('PESEPAY_ENCRYPTION_KEY'),
+        'sandbox' => env('PESEPAY_SANDBOX', false),
+        'currency' => env('PESEPAY_CURRENCY', 'USD'),
+        'reason' => env('PESEPAY_REASON', 'EINEVA Labs Store Checkout'),
+
+        /*
+         | Seconds to wait for the gateway to connect / respond before we give
+         | up. Checkout is a synchronous user-facing request, so a hung
+         | gateway must not be able to hold the PHP worker open indefinitely.
+         */
+        'connect_timeout' => (int) env('PESEPAY_CONNECT_TIMEOUT', 10),
+        'timeout' => (int) env('PESEPAY_TIMEOUT', 30),
+    ],
+
+    'web3forms' => [
+        'access_key' => env('WEB3FORMS_ACCESS_KEY'),
+        'endpoint' => env('WEB3FORMS_ENDPOINT', 'https://api.web3forms.com/submit'),
+        'timeout' => (int) env('WEB3FORMS_TIMEOUT', 10),
     ],
 
 ];

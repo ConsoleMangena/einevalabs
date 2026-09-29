@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,8 +28,14 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('EINEVA Labs')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Red,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make('Store'),
+                NavigationGroup::make('Content'),
+                NavigationGroup::make('Enquiries'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -38,8 +45,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
+            /*
+             * Panel access is gated twice: canAccessPanel() on the User model
+             * rejects non-administrators at the door, and the per-model policies
+             * in App\Policies gate each resource inside.
+             */
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

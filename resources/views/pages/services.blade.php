@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Cybersecurity Capabilities - EINEVA Labs | Africa')
-@section('description', 'EINEVA Labs cybersecurity: penetration testing, vulnerability assessment, red teaming, secure SDLC, AI threat intel, incident response, SOC advisory.')
+@section('title', 'Offensive & Defensive Cybersecurity Capabilities - EINEVA Labs | Africa')
+@section('description', 'EINEVA Labs cybersecurity capabilities: authorised penetration testing, red teaming, secure SDLC, AI threat intelligence, incident response, and managed security services for Africa.')
 @section('canonical', 'https://eineva.co.zw/services')
 @section('og_url', 'https://eineva.co.zw/services')
-@section('og_title', 'Cybersecurity Capabilities - EINEVA Labs | Africa')
-@section('og_description', 'EINEVA Labs cybersecurity capabilities: penetration testing, secure development, threat intelligence, managed security services, and more - building capacity for Africa.')
+@section('og_title', 'Offensive & Defensive Cybersecurity Capabilities - EINEVA Labs | Africa')
+@section('og_description', 'Authorised offensive and defensive security capabilities: penetration testing, red teaming, secure development, threat intelligence, and managed security services.')
 
 @section('footer_tagline', 'Cybersecurity Research & Innovation for Africa')
 
@@ -14,17 +14,49 @@
       <img src="{{ asset('assets/logo/einevalabs.png') }}" alt="EINEVA Labs" width="150" height="150" loading="eager" style="max-width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.15)); display: inline-block;">
     </div>
     <h1 class="page-title">Capabilities</h1>
-    <p class="page-sub">Building a comprehensive cybersecurity practice for Africa</p>
+    <p class="page-sub">Offensive and defensive security, delivered with authorisation and care</p>
+
+    <div class="mv-section" style="margin-bottom: var(--section-gap);">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="mv-card h-100">
+            <div class="mv-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <p class="mv-label">Offensive Security</p>
+            <p>
+              We attack your systems the way a real adversary would, within strict ethical boundaries, to
+              prove where the weaknesses are before an attacker finds them. Every assessment is carried out
+              with written authorisation, an agreed scope, and documented rules of engagement.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mv-card h-100">
+            <div class="mv-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <p class="mv-label">Defensive Security</p>
+            <p>
+              We then help you close those gaps for good. Monitoring, detection engineering, hardening,
+              incident response, and secure development turn a one-off test into a standing defence that
+              keeps improving as your environment changes.
+            </p>
+          </div>
+        </div>
+      </div>
+      <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 1.5rem 0 0; text-align: center;">
+        All offensive work is authorised, scoped, and defensive in purpose. See our
+        <a href="{{ route('ethics') }}">ethics &amp; responsible security policy</a> for the commitments behind every engagement.
+      </p>
+    </div>
 
     <details class="category" open>
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
           <h2>Security Assessment</h2>
+          <span class="category-tag" data-side="offensive">Offensive</span>
         </summary>
         <div class="category-services">
           <div class="service">
             <h3><span class="service-icon">&#x1F50D;</span>Penetration Testing</h3>
-          <p>Simulating real-world attacks across web, mobile, network, and cloud environments to identify vulnerabilities before adversaries do.</p>
+          <p>Simulating real-world attacks across web, mobile, network, and cloud environments to identify vulnerabilities before adversaries do. Every test is carried out with written authorisation, an agreed scope, and documented rules of engagement.</p>
         </div>
         <div class="service">
             <h3><span class="service-icon">&#x1F4CA;</span>Vulnerability Assessment</h3>
@@ -32,7 +64,7 @@
         </div>
         <div class="service">
             <h3><span class="service-icon">&#x1F6E1;</span>Red Teaming</h3>
-          <p>Full-scope adversarial simulations that test people, processes, and technology - going beyond automated tools to emulate real threat actors.</p>
+          <p>Full-scope adversarial simulations that test people, processes, and technology - going beyond automated tools to emulate real threat actors. Scoped and authorised up front, and run with the client's own response team on standby.</p>
         </div>
       </div>
     </details>
@@ -41,6 +73,7 @@
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
           <h2>Secure Development &amp; Cloud</h2>
+          <span class="category-tag" data-side="defensive">Defensive</span>
         </summary>
         <div class="category-services">
           <div class="service">
@@ -62,6 +95,7 @@
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
         <h2>Threat Intelligence &amp; Response</h2>
+        <span class="category-tag" data-side="defensive">Defensive</span>
       </summary>
       <div class="category-services">
         <div class="service">
@@ -79,6 +113,7 @@
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
         <h2>Managed Security &amp; Advisory</h2>
+        <span class="category-tag" data-side="defensive">Defensive</span>
       </summary>
       <div class="category-services">
         <div class="service">
@@ -104,6 +139,7 @@
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
         <h2>Web3 &amp; Blockchain Security</h2>
+        <span class="category-tag" data-side="offensive">Offensive</span>
       </summary>
       <div class="category-services">
         <div class="service">
@@ -121,6 +157,7 @@
       <summary class="category-header">
         <div class="category-accent" aria-hidden="true"></div>
         <h2>Security Culture</h2>
+        <span class="category-tag" data-side="defensive">Defensive</span>
       </summary>
       <div class="category-services">
         <div class="service">

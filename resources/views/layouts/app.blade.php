@@ -16,13 +16,22 @@
   <meta property="og:url" content="@yield('og_url', url()->current())">
   <meta property="og:title" content="@yield('og_title', 'EINEVA Labs | Securing Africa\'s Digital Future')">
   <meta property="og:description" content="@yield('og_description', 'EINEVA Labs is Africa\'s dedicated cybersecurity research and innovation laboratory. Partner with us to secure your digital future.')">
-  <meta property="og:image" content="@yield('og_image', asset('assets/images/og-share.svg'))">
-  <meta property="og:image:type" content="@yield('og_image_type', 'image/svg+xml')">
+  {{--
+      The share card is a PNG, not the SVG it replaced: Facebook, LinkedIn,
+      Slack and X do not render SVG og:images, so every shared link was
+      rendering with no preview. The dimensions and type are declared because
+      crawlers use them to lay the card out before fetching it.
+  --}}
+  <meta property="og:image" content="@yield('og_image', asset('assets/images/og-share.png'))">
+  <meta property="og:image:type" content="@yield('og_image_type', 'image/png')">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EINEVA Labs - Securing Africa's Digital Future">
   <meta property="og:locale" content="en_ZW">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="@yield('og_title', 'EINEVA Labs | Securing Africa\'s Digital Future')">
   <meta name="twitter:description" content="@yield('og_description', 'EINEVA Labs is Africa\'s dedicated cybersecurity research and innovation laboratory. Partner with us to secure your digital future.')">
-  <meta name="twitter:image" content="@yield('og_image', asset('assets/images/og-share.svg'))">
+  <meta name="twitter:image" content="@yield('og_image', asset('assets/images/og-share.png'))">
   @yield('robots')
   <link rel="manifest" href="{{ asset('manifest.json') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap.min.css') }}">
@@ -66,6 +75,19 @@
   <nav class="topbar" aria-label="Primary">
     <div class="topbar__inner">
       <a href="{{ route('home') }}" class="topbar__brand" aria-label="EINEVA Labs home"><img src="{{ asset('assets/logo/einevalabs.png') }}" alt="" width="32" height="32"><span>EINEVA <span class="brand-accent">LABS</span></span></a>
+      {{--
+          The toggle is a sibling of the brand and the hamburger, NOT a child
+          of #navLinks. It used to live inside the menu, and because
+          .topbar__menu is a Bootstrap .collapse that is display:none on
+          mobile, the only way to leave dark mode on a phone was to open the
+          menu first. styles.css already declares order:2 for the toggle and
+          order:3 for the hamburger, which only has an effect out here at the
+          top level of the flex row.
+      --}}
+      <button class="topbar__theme" id="thbtn" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">
+        <svg class="topbar__theme-icon topbar__theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+        <svg class="topbar__theme-icon topbar__theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6 8.6 8.6 0 1 0 20.4 14.2Z"/></svg>
+      </button>
       <button class="topbar__toggle" type="button" aria-label="Toggle navigation menu" aria-controls="navLinks" aria-expanded="false"><span></span></button>
       <div class="collapse topbar__menu" id="navLinks">
         <ul class="topbar__list">
@@ -77,21 +99,30 @@
           <li><a href="{{ route('posts.index') }}" @if(Str::startsWith(Route::currentRouteName(), 'posts.')) class="active" aria-current="page" @endif>Blog</a></li>
           <li><a href="{{ route('contact') }}" @if(Route::currentRouteName() === 'contact') class="active" aria-current="page" @endif>Contact</a></li>
         </ul>
-<a href="{{ route('products.index') }}" class="btn btn-primary topbar__cta" title="The Bench" aria-label="The Bench, EINEVA Labs store" style="padding: 0.5rem 0.75rem;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        </a>
-        @if(Session::has('cart') && count(Session::get('cart', [])) > 0)
-            <a href="{{ route('products.cart') }}" class="topbar__cta" style="padding: 0.5rem 0.75rem; margin-left: 0.5rem; color: var(--color-red); display: inline-flex; align-items: center; text-decoration: none;">
-              <div style="position: relative; display: inline-flex;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <span class="topbar__cta-badge" style="position: absolute; top: -8px; right: -10px; background: var(--color-red); padding: 0.15rem 0.3rem; border-radius: 9999px; font-size: 0.65rem; font-weight: 700; color: white; min-width: 1rem; text-align: center; line-height: 1;">{{ count(array_filter(array_column(Session::get('cart', []), 'quantity'))) }}</span>
-              </div>
+
+        <div class="topbar__actions">
+          <a href="{{ route('products.index') }}" class="btn btn-primary topbar__cta" title="The Bench" aria-label="The Bench, EINEVA Labs store">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span class="sr-only">The Bench</span>
+          </a>
+
+          {{--
+              The badge counted array_column($cart, 'quantity'), which
+              array_filter() then removed any entry whose quantity was 0 -
+              so the number shown was the count of lines, not of items, and
+              it was wrong the moment a line hit zero.
+          --}}
+          @php($cartCount = collect(Session::get('cart', []))->sum(fn ($line) => is_array($line) ? (int) ($line['quantity'] ?? 0) : 0))
+          @if($cartCount > 0)
+            <a href="{{ route('products.cart') }}" class="topbar__cta topbar__cta--cart">
+              <span class="sr-only">Cart, {{ $cartCount }} {{ Str::plural('item', $cartCount) }}</span>
+              <span aria-hidden="true" style="position: relative; display: inline-flex;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span class="topbar__cta-badge" style="position: absolute; top: -8px; right: -10px; background: var(--color-red); padding: 0.15rem 0.3rem; border-radius: 9999px; font-size: 0.65rem; font-weight: 700; color: #fff; min-width: 1rem; text-align: center; line-height: 1;">{{ $cartCount }}</span>
+              </span>
             </a>
-        @endif
-      <button class="topbar__theme" id="thbtn" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">
-        <svg class="topbar__theme-icon topbar__theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
-        <svg class="topbar__theme-icon topbar__theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6 8.6 8.6 0 1 0 20.4 14.2Z"/></svg>
-      </button>
+          @endif
+        </div>
       </div>
     </div>
   </nav>
@@ -132,6 +163,7 @@
             <li><a href="{{ route('home') }}" style="color: var(--color-text-dim); text-decoration: none;">Home</a></li>
             <li><a href="{{ route('services') }}" style="color: var(--color-text-dim); text-decoration: none;">Services</a></li>
             <li><a href="{{ route('posts.index') }}" style="color: var(--color-text-dim); text-decoration: none;">Blog</a></li>
+            <li><a href="{{ route('ethics') }}" style="color: var(--color-text-dim); text-decoration: none;">Ethics</a></li>
             <li><a href="{{ route('contact') }}" style="color: var(--color-text-dim); text-decoration: none;">Contact Us</a></li>
           </ul>
         </div>
@@ -161,6 +193,7 @@
         <p style="margin: 0;">&copy; {{ date('Y') }} EINEVA Labs. All rights reserved.</p>
         <div style="display: flex; gap: 1.5rem;">
           <a href="{{ route('privacy') }}" style="color: var(--color-text-muted); text-decoration: none;">Privacy Policy</a>
+          <a href="{{ route('ethics') }}" style="color: var(--color-text-muted); text-decoration: none;">Ethics</a>
           <a href="{{ route('contact') }}" style="color: var(--color-text-muted); text-decoration: none;">Support</a>
         </div>
       </div>

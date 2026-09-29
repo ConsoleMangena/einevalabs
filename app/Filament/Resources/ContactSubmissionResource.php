@@ -3,87 +3,118 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactSubmissionResource\Pages;
-use App\Filament\Resources\ContactSubmissionResource\RelationManagers;
 use App\Models\ContactSubmission;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ContactSubmissionResource extends Resource
 {
     protected static ?string $model = ContactSubmission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-envelope-open';
+
+    protected static ?string $navigationGroup = 'Enquiries';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function label(): string
+    {
+        return 'Contact Messages';
+    }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subject')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\Textarea::make('message')
-                    ->required()
-                    ->columnSpanFull(),
-            ]);
+        return $form->schema([
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\TextInput::make('email')
+                ->email()
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\TextInput::make('subject')
+                ->maxLength(255)
+                ->default(null),
+
+            Forms\Components\Textarea::make('message')
+                ->required()
+                ->rows(12)
+                ->columnSpanFull(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
+                    ->searchable()
+                    ->description(fn (ContactSubmission $record): ?string => $record->email),
+
                 Tables\Columns\TextColumn::make('subject')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->searchable()
+                    ->placeholder('(no subject)')
+                    ->limit(50),
+
+                // Truncated in the table so one long message cannot stretch a
+                // row to thousands of pixels; the full text is on the view
+                // page.
+                Tables\Columns\TextColumn::make('message')
+                    ->limit(80)
+                    ->tooltip(fn (ContactSubmission $record): string => $record->message)
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Received')
+                    ->dateTime()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('has_subject')
+                    ->label('Has a subject')
+                    // A TernaryFilter's state is an array keyed "value", not
+                    // "state". Reading $data['state'] raised an undefined-key
+                    // error every time this table rendered.
+                    ->query(fn ($query, array $data) => ($data['value'] ?? null)
+                        ? $query->whereNotNull('subject')
+                        : $query->whereNull('subject'))
+                    ->indicateUsing(fn (array $data): array => blank($data['value'] ?? null)
+                        ? []
+                        : [($data['value'] ? 'Has a subject' : 'Has no subject')]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                // No edit or delete: a submission is a record of what a visitor
+                // wrote. ContactSubmissionPolicy forbids both.
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                // No create action: these only ever arrive from the public form.
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListContactSubmissions::route('/'),
-            'create' => Pages\CreateContactSubmission::route('/create'),
-            'edit' => Pages\EditContactSubmission::route('/{record}/edit'),
+            'view' => Pages\ViewContactSubmission::route('/{record}'),
         ];
     }
 }

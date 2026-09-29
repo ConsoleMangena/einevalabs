@@ -56,6 +56,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Deployment / Proxy Settings
+    |--------------------------------------------------------------------------
+    |
+    | cPanel hosts this app behind a proxy or CDN, so the request that reaches
+    | PHP reports the proxy's scheme and address. These live in config/ rather
+    | than being read with env() in bootstrap/app.php and
+    | AppServiceProvider, because env() returns null once
+    | `php artisan config:cache` has been run and the .env file is no longer
+    | loaded - which would silently disable https and proxy trust in exactly
+    | the production environment that needs them.
+    |
+    | trusted_proxies: '*' is the normal single-tenant cPanel setup. Pin it to
+    | the host's proxy address (e.g. TRUSTED_PROXIES=10.0.0.1) if the site ever
+    | sits behind an intermediary you do not control, because trusting every
+    | hop lets a client spoof X-Forwarded-For and defeat the IP-keyed rate
+    | limiters on the contact, newsletter and checkout endpoints.
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES', '*'),
+
+    'force_https' => env('APP_FORCE_HTTPS', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

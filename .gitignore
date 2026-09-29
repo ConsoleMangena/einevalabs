@@ -25,3 +25,16 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Agent tooling - these carry per-developer API keys, never commit them.
+/opencode.json
+/opencode.local.json
+/.codex
+/.cursor/
+
+# Local HTTP scratch files (curl cookie jars capture live session cookies).
+/cookies.txt
+/cookies-*.txt
+
+# Bundled Composer binary - install with `composer` instead.
+/composer.phar

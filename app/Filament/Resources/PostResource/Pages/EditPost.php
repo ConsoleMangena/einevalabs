@@ -13,6 +13,13 @@ class EditPost extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('view')
+                ->label('View post')
+                ->icon('heroicon-o-arrow-top-right-on-square')
+                ->url(fn (): string => route('posts.show', ['post' => $this->record]))
+                ->visible(fn (): bool => $this->record->isPublished())
+                ->openUrlInNewTab(),
+
             Actions\DeleteAction::make(),
         ];
     }

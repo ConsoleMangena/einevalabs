@@ -71,7 +71,7 @@
             </div>
             <div class="field">
               <label for="contact-message">Message</label>
-              <textarea id="contact-message" name="message" placeholder="Tell us more..." required></textarea>
+              <textarea id="contact-message" name="message" placeholder="Tell us more..." required minlength="10" maxlength="5000"></textarea>
             </div>
             <input type="checkbox" name="botcheck" class="hidden">
             <button type="submit">Send message</button>

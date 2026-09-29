@@ -39,6 +39,11 @@ class PageController extends Controller
         return view('pages.privacy');
     }
 
+    public function ethics()
+    {
+        return view('pages.ethics');
+    }
+
     public function sitesurveyor()
     {
         return view('projects.sitesurveyor');

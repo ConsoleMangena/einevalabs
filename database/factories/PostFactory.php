@@ -2,13 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends Factory<Post>
  */
 class PostFactory extends Factory
 {
+    /**
+     * Per-instance cursor over $fixtures. Deliberately not `static`: a
+     * process-global counter makes factory output depend on test execution
+     * order, which is exactly the flakiness this is replacing.
+     */
+    private int $cursor = 0;
+
     /**
      * Define the model's default state.
      *
@@ -54,17 +62,59 @@ class PostFactory extends Factory
             ],
         ];
 
-        static $index = 0;
-        $post = $posts[$index % count($posts)];
-        $index++;
+        /*
+         * The original factory cycled a hardcoded array through a
+         * `static $index` counter. That counter is process-global, so the
+         * content a factory call returned depended on how many other tests
+         * had run first - two tests asserting on the same post got different
+         * rows, and running a single test in isolation produced a different
+         * one again. The fixtures are kept, but indexed per instance.
+         */
+        $post = $posts[$this->cursor++ % count($posts)];
 
         return [
             'title' => $post['title'],
-            'slug' => $post['slug'],
+            /*
+             * The fixture slugs are unique to the fixture, not to the run.
+             * Once the five fixtures are exhausted the cursor wraps and the
+             * second insert collides with posts.slug, so any test creating
+             * more than five posts failed on a UNIQUE violation rather than on
+             * what it meant to assert.
+             */
+            'slug' => $post['slug'].'-'.$this->faker->unique()->numberBetween(1, 999999),
             'excerpt' => $post['excerpt'],
             'image' => $post['image'],
             'content' => $post['content'],
             'created_at' => $this->faker->dateTimeBetween('-6 months', 'now'),
+            /*
+             * Published by default. The public blog only shows rows where
+             * published_at is set and in the past, so an unpublished factory
+             * made every storefront assertion a 404 for reasons that had
+             * nothing to do with the test. Use ->draft() to test the gate.
+             */
+            'published_at' => $this->faker->dateTimeBetween('-6 months', 'now'),
         ];
+    }
+
+    /**
+     * An unpublished draft: invisible to the public blog and 404 at
+     * /blog/<slug>.
+     */
+    public function draft(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'published_at' => null,
+        ]);
+    }
+
+    /**
+     * Scheduled for the future: has a publish date, so it is still hidden
+     * until that date passes.
+     */
+    public function scheduled(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'published_at' => now()->addWeek(),
+        ]);
     }
 }
