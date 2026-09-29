@@ -583,13 +583,15 @@ body::after {
     top: var(--nav);
     left: 0;
     right: 0;
-    z-index: 1049;
+    z-index: 9999;
     border-radius: 0;
     border-width: 0 0 1px;
     animation: panelIn 0.28s var(--ease);
     max-height: calc(100vh - var(--nav));
     overflow-y: auto;
     padding-bottom: 2rem;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
   .topbar .topbar__cta { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; }
   .topbar .topbar__cta span.sr-only {
