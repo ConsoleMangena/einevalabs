@@ -33,7 +33,6 @@ class Pesepay
         private int $connectTimeout = 10,
         private int $timeout = 30,
     ) {
-        $this->assertKeyLengthValid($this->integrationKey, 'Integration key');
         $this->assertKeyLengthValid($this->encryptionKey, 'Encryption key');
     }
 
