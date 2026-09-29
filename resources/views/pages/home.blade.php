@@ -96,37 +96,38 @@
       </div>
     </div>
 
-    <!-- Ethics & Authorisation -->
-    <div class="ethics-section" style="margin-bottom: var(--section-gap);">
-      <div class="mv-card" style="padding: 2.5rem; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
-        <h2 class="section-title" style="margin-left: 0; text-align: left;">Our Offensive Work Is Strictly Ethical</h2>
-        <p style="color: var(--color-text-dim); font-size: 1.05rem; margin-bottom: 1.5rem;">
-          Breaking into systems is only ever used to make them stronger. We do not test, probe, or demonstrate capability against anything we have not been explicitly authorised to assess in writing. Our purpose is defensive: find the weakness responsibly, report it responsibly, and help fix it.
-        </p>
-        <div class="row g-4">
-          <div class="col-md-6">
-            <p class="mv-label" style="margin-bottom: 0.35rem;">Written authorisation first</p>
-            <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 0;">No engagement begins without signed permission from the asset owner, defining exactly which systems are in scope and who owns them.</p>
-          </div>
-          <div class="col-md-6">
-            <p class="mv-label" style="margin-bottom: 0.35rem;">Agreed rules of engagement</p>
-            <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 0;">Testing windows, permitted techniques, and escalation contacts are agreed in advance. Anything outside the agreed scope is not attempted.</p>
-          </div>
-          <div class="col-md-6">
-            <p class="mv-label" style="margin-bottom: 0.35rem;">Minimum necessary access</p>
-            <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 0;">We access only what the assessment requires, avoid collecting personal or production data, and destroy or return evidence securely on request.</p>
-          </div>
-          <div class="col-md-6">
-            <p class="mv-label" style="margin-bottom: 0.35rem;">Responsible disclosure</p>
-            <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 0;">Findings go to the client first and are published only after remediation or after the agreed disclosure window. We do not trade in access, exploits, or leaked data.</p>
-          </div>
-        </div>
-        <p style="color: var(--color-text-dim); font-size: 0.95rem; margin: 1.5rem 0 0;">
-          If you find a vulnerability in one of our own systems, please report it to
-          <a href="mailto:info@eineva.co.zw">info@eineva.co.zw</a> rather than exploiting it. We will acknowledge your report and coordinate a fix.
-        </p>
-        <div style="margin-top: 1.75rem;">
-          <a href="{{ route('ethics') }}" class="btn btn-secondary">Read our full ethics &amp; responsible security policy</a>
+    <!-- Technologies Slider -->
+    <div class="tech-slider-container">
+      <h2 class="tech-slider-title">Technologies &amp; Platforms We Secure</h2>
+      <div class="tech-slider">
+        <div class="tech-slider-track">
+          @php
+            $techIcons = [
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', 'alt' => 'PHP'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg', 'alt' => 'Laravel'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', 'alt' => 'Python'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', 'alt' => 'JavaScript'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', 'alt' => 'TypeScript'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', 'alt' => 'React'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg', 'alt' => 'Vue.js'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg', 'alt' => 'Node.js'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg', 'alt' => 'Rust'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg', 'alt' => 'Go'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg', 'alt' => 'C++'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', 'alt' => 'Java'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', 'alt' => 'Docker'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg', 'alt' => 'Kubernetes'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', 'alt' => 'AWS'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', 'alt' => 'Linux'],
+            ];
+          @endphp
+          @foreach($techIcons as $icon)
+            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" loading="lazy">
+          @endforeach
+          <!-- Duplicate for seamless loop -->
+          @foreach($techIcons as $icon)
+            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" aria-hidden="true" loading="lazy">
+          @endforeach
         </div>
       </div>
     </div>
