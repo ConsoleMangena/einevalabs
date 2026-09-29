@@ -20,11 +20,14 @@ class Transaction
 
     public ?array $paymentMetadata = null;
 
-    public function __construct(float $amount, string $currencyCode, string $reasonForPayment, ?string $merchantReference = null)
+    public ?Customer $customer = null;
+
+    public function __construct(float $amount, string $currencyCode, string $reasonForPayment, ?string $merchantReference = null, ?Customer $customer = null)
     {
         $this->amountDetails = new Amount($amount, $currencyCode);
         $this->reasonForPayment = $reasonForPayment;
         $this->merchantReference = $merchantReference;
+        $this->customer = $customer;
     }
 
     public function setPaymentMetadata(array $paymentMetadata): void

@@ -221,6 +221,11 @@ class CheckoutService
         $client->resultUrl = route('checkout.webhook');
         $client->returnUrl = route('checkout.return');
 
+        $customer = new \App\Services\Pesepay\Customer(
+            email: $order->customer_email,
+            name: $order->customer_name
+        );
+
         $transaction = $client->createTransaction(
             amount: (float) $order->total,
             currencyCode: $order->currency,
@@ -228,6 +233,7 @@ class CheckoutService
             // The ULID is the merchant reference, so a payment in the gateway
             // dashboard can always be traced back to an order here.
             merchantReference: $order->ulid,
+            customer: $customer,
         );
 
         $result = $client->initiateTransaction($transaction);

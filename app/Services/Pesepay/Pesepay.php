@@ -84,9 +84,9 @@ class Pesepay
         );
     }
 
-    public function createTransaction(float $amount, string $currencyCode, string $paymentReason, ?string $merchantReference = null): Transaction
+    public function createTransaction(float $amount, string $currencyCode, string $paymentReason, ?string $merchantReference = null, ?Customer $customer = null): Transaction
     {
-        return new Transaction($amount, $currencyCode, $paymentReason, $merchantReference);
+        return new Transaction($amount, $currencyCode, $paymentReason, $merchantReference, $customer);
     }
 
     public function createPayment(string $currencyCode, string $paymentMethodCode, ?string $email = null, ?string $phone = null, ?string $name = null): Payment
