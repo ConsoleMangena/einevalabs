@@ -2284,11 +2284,20 @@ textarea:focus-visible { outline-offset: 1px; }
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 .tech-slider-track {
-  display: inline-flex;
+  /* The logo set is rendered twice and scrolled by -50%, so the track's box
+     must be exactly its content width or the loop visibly jumps at the seam.
+     An inline-level box shrink-to-fits, and the site-wide
+     `img, svg, video { max-width: 100% }` then resolves each logo's
+     max-width against the track's own content box -- a circular percentage
+     dependency the browser breaks by clamping the track short of its real
+     width. Block-level + max-content removes the shrink-to-fit path. */
+  display: flex;
+  width: max-content;
   gap: 4rem;
   align-items: center;
   animation: scrollMarquee 30s linear infinite;
   padding-left: 4rem; /* Match gap so the loop doesn't jump */
+  will-change: transform;
 }
 .tech-slider-track:hover {
   animation-play-state: paused;
@@ -2296,12 +2305,27 @@ textarea:focus-visible { outline-offset: 1px; }
 .tech-slider-track img {
   height: 48px;
   width: auto;
-  filter: grayscale(100%) opacity(60%);
-  transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
+  /* Keep the brand colour: greyscaling it cost these logos their contrast
+     against the dark card (WCAG 1.4.11 wants 3:1 for non-text graphics). */
+  opacity: 0.85;
+  /* Never let a logo's width feed back into the track's own sizing. */
+  max-width: none;
+  flex: 0 0 auto;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
 .tech-slider-track img:hover {
-  filter: grayscale(0%) opacity(100%);
+  opacity: 1;
   transform: scale(1.15);
+}
+/* Some icon sets ship single-colour glyphs with no `fill` attribute, so the
+   paths fall back to black and vanish against the dark card. (Rust in devicon
+   and Linux in simple-icons both do this.) Re-ink only those, opt-in per logo,
+   and leave the brand-coloured logos alone. */
+.tech-slider-track img.tech-logo--mono {
+  filter: invert(1);
+}
+.lm .tech-slider-track img.tech-logo--mono {
+  filter: none; /* already dark-on-light; inverting would hide it */
 }
 @keyframes scrollMarquee {
   0% { transform: translateX(0); }

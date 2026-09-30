@@ -111,22 +111,22 @@
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', 'alt' => 'React'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg', 'alt' => 'Vue.js'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg', 'alt' => 'Node.js'],
-              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg', 'alt' => 'Rust'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg', 'alt' => 'Rust', 'class' => 'tech-logo--mono'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg', 'alt' => 'Go'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg', 'alt' => 'C++'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', 'alt' => 'Java'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', 'alt' => 'Docker'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg', 'alt' => 'Kubernetes'],
               ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', 'alt' => 'AWS'],
-              ['src' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', 'alt' => 'Linux'],
+              ['src' => 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@latest/icons/linux.svg', 'alt' => 'Linux', 'class' => 'tech-logo--mono'],
             ];
           @endphp
           @foreach($techIcons as $icon)
-            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" loading="lazy">
+            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" class="{{ $icon['class'] ?? '' }}" width="128" height="128" loading="lazy" draggable="false">
           @endforeach
           <!-- Duplicate for seamless loop -->
           @foreach($techIcons as $icon)
-            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" aria-hidden="true" loading="lazy">
+            <img src="{{ $icon['src'] }}" alt="{{ $icon['alt'] }}" title="{{ $icon['alt'] }}" class="{{ $icon['class'] ?? '' }}" width="128" height="128" aria-hidden="true" loading="lazy" draggable="false">
           @endforeach
         </div>
       </div>

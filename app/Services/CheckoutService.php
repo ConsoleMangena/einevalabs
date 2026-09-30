@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Services\Pesepay\Customer;
 use App\Services\Pesepay\ErrorResponse;
 use App\Services\Pesepay\Pesepay;
 use App\Services\Pesepay\Response;
@@ -221,7 +222,7 @@ class CheckoutService
         $client->resultUrl = route('checkout.webhook');
         $client->returnUrl = route('checkout.return');
 
-        $customer = new \App\Services\Pesepay\Customer(
+        $customer = new Customer(
             email: $order->customer_email,
             name: $order->customer_name
         );
