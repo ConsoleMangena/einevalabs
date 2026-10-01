@@ -116,7 +116,22 @@ return [
 
     'inject_assets' => true,
 
-    'asset_url' => env('ASSET_URL', '/vendor'),
+    /*
+    |---------------------------------------------------------------------------
+    | Frontend Asset URL
+    |---------------------------------------------------------------------------
+    |
+    | Deliberately unset. `asset_url` is used verbatim as the complete <script>
+    | src, not as a directory to append the filename to, so a value like
+    | "/vendor" emits src="/vendor" - a directory that serves no JavaScript.
+    | Livewire then never boots, `wire:submit` on the admin login form is
+    | never intercepted, and the browser falls back to a native form POST that
+    | the GET-only filament.admin.auth.login route rejects with 405.
+    |
+    | Leaving it null makes Livewire build the versioned URL itself from the
+    | published manifest, which is what actually resolves to a real file.
+    |
+    */
 
     /*
     |---------------------------------------------------------------------------
