@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow">
 @endsection
 
-@section('footer_tagline', 'Cybersecurity Research & Innovation for Africa')
+@section('footer_tagline', 'Technology research, engineering and visualisation for Africa')
 
 @section('content')
     <div class="logo">
@@ -94,7 +94,7 @@
       <p>
         If you have questions about this policy, contact us at
         <a href="mailto:info@eineva.co.zw">info@eineva.co.zw</a> or
-        <a href="tel:+263781524929">+263 78 152 4929</a>. EINEVA Labs is based in Gweru, Zimbabwe.
+        <a href="tel:+263789575175">+263 78 957 5175</a>. EINEVA Labs is based in Gweru, Zimbabwe.
       </p>
     </div>
 @endsection

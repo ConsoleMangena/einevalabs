@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Cart - The Bench | EINEVA Labs')
-@section('description', 'Your selected items from The Bench store')
+@section('title', 'Cart - EINEVA Marketplace | EINEVA Labs')
+@section('description', 'Your selected items from EINEVA Marketplace store')
 @section('robots')
   <meta name="robots" content="noindex, nofollow">
 @endsection

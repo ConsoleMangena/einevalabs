@@ -1,45 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Projects - EINEVA Labs | Cybersecurity & Software Innovation')
-@section('description', 'Explore projects by EINEVA Labs: SiteSurveyor for Engineers - Web 3.0 project management for survey projects with marketplace and enterprise accounts.')
+@section('title', 'Projects - EINEVA Labs | Software, Security & Visualisation')
+@section('description', 'Explore projects by EINEVA Labs: SiteSurveyor for Engineers and BizIntel, both built by our software engineers using AI and blockchain.')
 @section('canonical', 'https://eineva.co.zw/projects')
 @section('og_url', 'https://eineva.co.zw/projects')
-@section('og_title', 'Projects - EINEVA Labs | Cybersecurity & Software Innovation')
-@section('og_description', 'Explore projects by EINEVA Labs - including SiteSurveyor for Engineers, with Personal and Enterprise accounts, and an instrument and personnel marketplace.')
-
-@section('footer_tagline', 'Cybersecurity Research & Innovation for Africa')
+@section('og_title', 'Projects - EINEVA Labs | Software, Security & Visualisation')
+@section('og_description', 'Explore projects by EINEVA Labs - including SiteSurveyor for Engineers, with Personal and Enterprise accounts, and the open-source BizIntel enterprise intelligence platform.')
 
 @section('content')
     <div class="logo">
       <img src="{{ asset('assets/logo/einevalabs.png') }}" alt="EINEVA Labs" width="150" height="150" loading="eager" style="max-width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.15)); display: inline-block;">
     </div>
     <h1 class="page-title">Our Projects</h1>
-    <p class="page-sub">EINEVA Labs develops software products to address specific security and operational challenges. We build systems using artificial intelligence and blockchain technology.</p>
+    <p class="page-sub">EINEVA Labs builds software products to address specific security and operational challenges, using artificial intelligence, blockchain, and 3D visualisation. Each project below is tagged with the team that owns it.</p>
 
     <!-- Bootstrap grid: side-by-side on desktop, stacked on mobile -->
     <div class="projects-grid" style="margin-bottom: var(--section-gap);">
       <div class="row g-4">
         <div class="col-lg-6">
-          <div class="project-card h-100">
+          <div class="project-card h-100" style="background-image: linear-gradient(rgba(10, 10, 12, 0.85), rgba(10, 10, 12, 0.95)), url('{{ asset('assets/images/software_bg.jpg') }}'); background-size: cover; background-position: center; border: 1px solid var(--border);">
             <div class="project-header">
               <img src="{{ asset('assets/images/logos/sitesurveyor.jpeg') }}" alt="SiteSurveyor for Engineers logo" class="project-logo" width="80" height="80" loading="lazy">
               <div>
                 <h2 class="project-title">SiteSurveyor Framework</h2>
                 <p class="project-tagline">AI Automation &amp; Solana Blockchain for Surveying Systems</p>
               </div>
+              <span class="dept-tag" data-dept="software">Software</span>
             </div>
             <p class="project-desc">A framework for surveying systems. Built with Rust, WebAssembly, and Tauri, it integrates OpenClaw AI for automation and the Solana blockchain for secure records.</p>
             <a href="{{ route('projects.sitesurveyor') }}" class="project-link">View SiteSurveyor details &rarr;</a>
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="project-card h-100">
+          <div class="project-card h-100" style="background-image: linear-gradient(rgba(10, 10, 12, 0.85), rgba(10, 10, 12, 0.95)), url('{{ asset('assets/images/software_bg.jpg') }}'); background-size: cover; background-position: center; border: 1px solid var(--border);">
             <div class="project-header">
               <img src="{{ asset('assets/images/logos/bizintel2.png') }}" alt="BizIntel logo" class="project-logo" width="80" height="80" loading="lazy">
               <div>
                 <h2 class="project-title">BizIntel Framework</h2>
                 <p class="project-tagline">AI-Powered Enterprise Intelligence System</p>
               </div>
+              <span class="dept-tag" data-dept="software">Software</span>
             </div>
             <p class="project-desc">An open-source enterprise intelligence platform. It uses the Solana blockchain for data integrity and OpenClaw AI for market monitoring and operational analysis.</p>
             <a href="{{ route('projects.bizintel') }}" class="project-link">View BizIntel details &rarr;</a>
@@ -53,7 +53,7 @@
       <div class="row g-4 justify-content-center">
         <div class="col-md-8">
           <div class="mv-card" style="text-align: center; padding: 3rem 2rem;">
-            <div class="mv-icon" style="margin: 0 auto 1.5rem;" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div class="mv-icon" style="margin: 0 auto 1.5rem;" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></div>
             <p class="mv-label">Open Source</p>
             <p style="margin-bottom: 2rem;">
               Our core frameworks are open source. We encourage developers and security researchers to audit our code, contribute to the repositories, and adapt the tools for their own environments.

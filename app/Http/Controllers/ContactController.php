@@ -23,6 +23,8 @@ class ContactController extends Controller
         $submission = ContactSubmission::create([
             'name' => $request->validated('name'),
             'email' => $request->validated('email'),
+            // nullable, so validated() can legitimately be null here.
+            'department' => $request->validated('department'),
             'subject' => $request->validated('subject'),
             'message' => $request->validated('message'),
         ]);

@@ -24,70 +24,77 @@ class ProductResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('name')
-                ->required()
-                ->maxLength(255)
-                ->afterStateUpdated(function (?string $state, callable $set, callable $get): void {
-                    if (blank($get('slug'))) {
-                        $set('slug', Str::slug((string) $state));
-                    }
-                }),
+            Forms\Components\Grid::make(3)->schema([
+                Forms\Components\Section::make('Product Details')->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255)
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(function (?string $state, callable $set, callable $get): void {
+                            if (blank($get('slug'))) {
+                                $set('slug', \Illuminate\Support\Str::slug((string) $state));
+                            }
+                        }),
 
-            Forms\Components\TextInput::make('slug')
-                ->required()
-                ->maxLength(255)
-                ->helperText('Used as the product URL: /store/<slug>.')
-                ->unique(ignoreRecord: true)
-                ->dehydrateStateUsing(fn (?string $state): string => Str::slug((string) $state))
-                ->placeholder('hardened-workstation-14'),
+                    Forms\Components\TextInput::make('slug')
+                        ->required()
+                        ->maxLength(255)
+                        ->helperText('Used as the product URL: /store/<slug>.')
+                        ->unique(ignoreRecord: true)
+                        ->dehydrateStateUsing(fn (?string $state): string => \Illuminate\Support\Str::slug((string) $state))
+                        ->placeholder('hardened-workstation-14'),
 
-            Forms\Components\TextInput::make('category')
-                ->required()
-                ->maxLength(255)
-                ->default('General')
-                // Suggestions are drawn from what already exists so the store
-                // landing page does not fragment into near-duplicate groups.
-                ->helperText('Groups products on the storefront landing page.'),
+                    Forms\Components\RichEditor::make('description')
+                        ->required()
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsDirectory('products/attachments')
+                        ->fileAttachmentsVisibility('public')
+                        ->columnSpanFull(),
 
-            Forms\Components\Textarea::make('description')
-                ->required()
-                ->maxLength(5000)
-                ->columnSpanFull(),
+                    Forms\Components\KeyValue::make('specs')
+                        ->keyLabel('Specification')
+                        ->valueLabel('Value')
+                        ->columnSpanFull(),
+                ])->columnSpan(2),
 
-            Forms\Components\TextInput::make('price')
-                ->numeric()
-                ->minValue(0)
-                ->maxValue(99999999.99)
-                ->step('0.01')
-                ->prefix('$')
-                ->helperText('Leave empty for "price on request" - the product cannot be added to a cart until it has one.'),
+                Forms\Components\Section::make('Meta')->schema([
+                    Forms\Components\TextInput::make('price')
+                        ->numeric()
+                        ->minValue(0)
+                        ->maxValue(99999999.99)
+                        ->step('0.01')
+                        ->prefix('$')
+                        ->helperText('Leave empty for "price on request".'),
+                        
+                    Forms\Components\TextInput::make('category')
+                        ->required()
+                        ->maxLength(255)
+                        ->default('General')
+                        ->helperText('Groups products on the storefront landing page.'),
 
-            Forms\Components\KeyValue::make('specs')
-                ->keyLabel('Specification')
-                ->valueLabel('Value')
-                ->columnSpanFull(),
+                    Forms\Components\FileUpload::make('image_url')
+                        ->label('Primary image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('products')
+                        ->visibility('public')
+                        ->imageEditor()
+                        ->maxSize(4096),
 
-            Forms\Components\FileUpload::make('image_url')
-                ->label('Primary image')
-                ->image()
-                ->disk('public')
-                ->directory('products')
-                ->visibility('public')
-                ->imageEditor()
-                ->maxSize(4096),
-
-            Forms\Components\FileUpload::make('images')
-                ->label('Gallery')
-                ->image()
-                ->multiple()
-                ->disk('public')
-                ->directory('products')
-                ->visibility('public')
-                ->imageEditor()
-                ->maxSize(4096)
-                ->maxFiles(8)
-                ->reorderable()
-                ->columnSpanFull(),
+                    Forms\Components\FileUpload::make('images')
+                        ->label('Gallery')
+                        ->image()
+                        ->multiple()
+                        ->disk('public')
+                        ->directory('products')
+                        ->visibility('public')
+                        ->imageEditor()
+                        ->maxSize(4096)
+                        ->maxFiles(8)
+                        ->reorderable()
+                        ->columnSpanFull(),
+                ])->columnSpan(1),
+            ])
         ]);
     }
 
@@ -97,7 +104,9 @@ class ProductResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url')
-                    ->label(''),
+                    ->label('Image')
+                    ->square()
+                    ->size(60),
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()

@@ -109,6 +109,14 @@ values matters because the column feeds a Filament table filter — an
 unvalidated free string would let anyone write unbounded text into a column
 that gets rendered in the admin table.
 
+## Accent mechanism
+
+`data-dept="cyber|software|three_d"` on a `.dept-block` sets four custom
+properties (`--dept-accent`, `-text`, `-dim`, `-bd`) on that element. Children
+read them, so a department's accent covers its heading rule, its tags and its
+cards without any per-department class names in the markup. The slugs match
+`config/departments.php` and the `data-dept` values in the views.
+
 ## Files
 
 | File | Change |
@@ -119,7 +127,10 @@ that gets rendered in the admin table.
 | `resources/views/pages/about.blade.php` | Hero, mission, vision, stats, journey reframed |
 | `resources/views/pages/projects.blade.php` | Department tags on existing cards |
 | `resources/views/pages/contact.blade.php` | Department select, copy |
-| `public/assets/styles.css` | `--color-violet` (both themes), `.dept-tag` variants |
+| `resources/views/pages/team.blade.php` | Meta and hero copy |
+| `resources/views/pages/{ethics,privacy}.blade.php`, `resources/views/projects/{bizintel,sitesurveyor}.blade.php` | Footer tagline yield updated to match the new default |
+| `config/departments.php` | New. Single source of truth for the three slugs and labels |
+| `public/assets/styles.css` | `--color-violet`, `.dept-tag`, `.dept-block`, `.dept-heading`; `.category-header h2, h3` |
 | `database/migrations/2026_10_01_000000_add_department_to_contact_submissions_table.php` | Nullable column |
 | `app/Models/ContactSubmission.php` | `department` fillable |
 | `app/Http/Requests/ContactRequest.php` | `department` rule |
@@ -129,19 +140,27 @@ that gets rendered in the admin table.
 
 ## Tests
 
-`tests/Feature/PublicPagesRenderTest.php` currently asserts the old hero and
-the old "Africa's dedicated cybersecurity research laboratory" string. Those
-assertions are replaced, not deleted — the test becomes a regression guard for
-the new positioning.
+`tests/Feature/PublicPagesRenderTest.php` asserted the old hero and the old
+"Africa's dedicated cybersecurity research laboratory" string. Those assertions
+were replaced, not deleted — the test is now a regression guard for the new
+positioning.
 
-Added:
+Added in `PublicPagesRenderTest`:
 
-- `/services` renders all three department headings and all three services
+- `/services` renders all three department headings, all three `data-dept`
+  attributes, and the new software/3D service names
 - `/` carries the new hero line
-- contact submission persists a valid department
-- contact submission rejects an unknown department
-- contact submission without a department still succeeds (the column is
-  nullable and the form must not become harder to use)
+- `/contact` renders a select with one option per configured department
+- `ContactSubmission::departmentLabel()` resolves through config and returns
+  null when unset
+
+Added in `PublicFormsTest` (which is the class that owns `RefreshDatabase`, so
+these are DB-backed rather than render-only):
+
+- a valid department is stored and prefixed onto the notification subject
+- an unknown department is rejected and nothing is written
+- omitting the department still stores a row with a null department and leaves
+  the subject unprefixed
 
 ## Out of scope
 

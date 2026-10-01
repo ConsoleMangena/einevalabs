@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title', 'EINEVA Labs | Securing Africa\'s Digital Future')</title>
-  <meta name="description" content="@yield('description', 'EINEVA Labs is Africa\'s dedicated cybersecurity research laboratory offering penetration testing, threat intelligence, and managed security services.')">
+  <title>@yield('title', 'EINEVA Labs | Cybersecurity, Software Engineering & Animation - Zimbabwe')</title>
+  <meta name="description" content="@yield('description', 'Cybersecurity research, software engineering, animation and frontend development. EINEVA Labs is an African technology research lab building, securing and explaining complex systems.')">
   <meta name="author" content="EINEVA Labs">
   <meta name="theme-color" content="#0a0a0f">
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,8 +14,8 @@
   @endif
   <meta property="og:type" content="website">
   <meta property="og:url" content="@yield('og_url', url()->current())">
-  <meta property="og:title" content="@yield('og_title', 'EINEVA Labs | Securing Africa\'s Digital Future')">
-  <meta property="og:description" content="@yield('og_description', 'EINEVA Labs is Africa\'s dedicated cybersecurity research and innovation laboratory. Partner with us to secure your digital future.')">
+  <meta property="og:title" content="@yield('og_title', 'EINEVA Labs | Cybersecurity, Software Engineering & Animation - Zimbabwe')">
+  <meta property="og:description" content="@yield('og_description', 'An African technology research lab. Cybersecurity, software engineering, animation and frontend development — under one roof, because the hard problems need all three.')">
   {{--
       The share card is a PNG, not the SVG it replaced: Facebook, LinkedIn,
       Slack and X do not render SVG og:images, so every shared link was
@@ -26,11 +26,11 @@
   <meta property="og:image:type" content="@yield('og_image_type', 'image/png')">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="EINEVA Labs - Securing Africa's Digital Future">
+  <meta property="og:image:alt" content="EINEVA Labs - Cybersecurity, software engineering, animation and frontend development">
   <meta property="og:locale" content="en_ZW">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="@yield('og_title', 'EINEVA Labs | Securing Africa\'s Digital Future')">
-  <meta name="twitter:description" content="@yield('og_description', 'EINEVA Labs is Africa\'s dedicated cybersecurity research and innovation laboratory. Partner with us to secure your digital future.')">
+  <meta name="twitter:title" content="@yield('og_title', 'EINEVA Labs | Cybersecurity, Software Engineering & Animation - Zimbabwe')">
+  <meta name="twitter:description" content="@yield('og_description', 'An African technology research lab. Cybersecurity, software engineering, animation and frontend development — under one roof, because the hard problems need all three.')">
   <meta name="twitter:image" content="@yield('og_image', asset('assets/images/og-share.png'))">
   @yield('robots')
   <link rel="manifest" href="{{ asset('manifest.json') }}">
@@ -101,9 +101,9 @@
         </ul>
 
         <div class="topbar__actions">
-          <a href="{{ route('products.index') }}" class="btn btn-primary topbar__cta" title="The Bench" aria-label="The Bench, EINEVA Labs store">
+          <a href="{{ route('products.index') }}" class="btn btn-primary topbar__cta" title="EINEVA Marketplace" aria-label="EINEVA Marketplace, EINEVA Labs store">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span class="sr-only">The Bench</span>
+            <span class="sr-only">EINEVA Marketplace</span>
           </a>
 
           {{--
@@ -149,7 +149,7 @@
             <img src="{{ asset('assets/logo/einevalabs.png') }}" alt="" width="36" height="36" style="border-radius: var(--radius-sm); border: 1px solid var(--color-border-hover); filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.22));">
             <span>EINEVA <span style="color: var(--color-red);">LABS</span></span>
           </a>
-          <p style="color: var(--color-text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">@yield('footer_tagline', 'Building secure digital infrastructure for Africa\'s future')</p>
+          <p style="color: var(--color-text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">@yield('footer_tagline', 'Technology research, engineering and visualisation for Africa')</p>
           <div class="social" aria-label="Social media links" style="display: flex; gap: 1rem;">
             <a href="https://www.linkedin.com/in/consolemangena404/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color: var(--color-icon); transition: color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
             <a href="https://www.facebook.com/einevalabs/" target="_blank" rel="noopener" aria-label="Facebook" style="color: var(--color-icon); transition: color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
@@ -172,14 +172,14 @@
           <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-heading); margin-bottom: 1.25rem;">Contact</h4>
           <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem;">
             <li><a href="mailto:info@eineva.co.zw" style="color: var(--color-text-dim); text-decoration: none;">info@eineva.co.zw</a></li>
-            <li><a href="tel:+263781524929" style="color: var(--color-text-dim); text-decoration: none;">+263 78 152 4929</a></li>
+            <li><a href="tel:+263789575175" style="color: var(--color-text-dim); text-decoration: none;">+263 78 957 5175</a></li>
             <li style="color: var(--color-text-dim);">Gweru, Zimbabwe</li>
           </ul>
         </div>
         
         <div class="col-lg-4 col-md-12">
           <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-heading); margin-bottom: 1.25rem;">Newsletter</h4>
-          <p style="color: var(--color-text-dim); font-size: 0.95rem; margin-bottom: 1.25rem;">Subscribe to get the latest cybersecurity research and updates.</p>
+          <p style="color: var(--color-text-dim); font-size: 0.95rem; margin-bottom: 1.25rem;">Subscribe for research releases, project updates and lab news.</p>
           <form action="{{ route('newsletter.subscribe') }}" method="post" aria-label="Subscribe to newsletter" style="display: flex; gap: 0.5rem; max-width: 400px;">
             @csrf
             <input type="email" name="email" placeholder="Email address..." required style="flex: 1; border: 1px solid var(--color-border); padding: 0.6rem 1rem; border-radius: var(--radius-sm); background: var(--color-bg-card); color: inherit; font-family: inherit; font-size: 0.95rem; outline: none; min-width: 0;">
@@ -200,7 +200,7 @@
     </footer>
   </div>
 
-  <a href="https://wa.me/263781524929?text=Hello%20EINEVA%20Labs" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="Chat with us on WhatsApp">
+  <a href="https://wa.me/263789575175?text=Hello%20EINEVA%20Labs" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="Chat with us on WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
   </a>
   <script src="{{ asset('assets/loader.js') }}" defer></script>

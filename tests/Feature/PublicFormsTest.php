@@ -75,6 +75,66 @@ class PublicFormsTest extends TestCase
         ])->assertSessionHasErrors('message');
     }
 
+    public function test_a_department_is_stored_and_named_in_the_notification(): void
+    {
+        Queue::fake();
+
+        $this->post(route('contact.submit'), [
+            'name' => 'Tendai Moyo',
+            'email' => 'tendai@example.com',
+            'department' => 'software',
+            'subject' => 'Internal tooling',
+            'message' => 'We need a small internal service built and maintained.',
+        ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('contact_submissions', [
+            'email' => 'tendai@example.com',
+            'department' => 'software',
+        ]);
+
+        // The department is prefixed onto the notification subject so an
+        // enquiry can be routed without opening the site.
+        Queue::assertPushed(SendWeb3FormsNotification::class, function (SendWeb3FormsNotification $job): bool {
+            return $job->payload['subject'] === '[Software Engineering] Internal tooling';
+        });
+    }
+
+    public function test_the_contact_form_rejects_an_unknown_department(): void
+    {
+        $this->post(route('contact.submit'), [
+            'name' => 'Tendai Moyo',
+            'email' => 'tendai@example.com',
+            'department' => 'not-a-department',
+            'message' => 'This department does not exist and must be rejected.',
+        ])->assertSessionHasErrors('department');
+
+        $this->assertDatabaseCount('contact_submissions', 0);
+    }
+
+    /**
+     * The column is nullable and the select is optional, so leaving it blank
+     * must still produce a saved submission and an unprefixed subject.
+     */
+    public function test_a_submission_without_a_department_still_succeeds(): void
+    {
+        Queue::fake();
+
+        $this->post(route('contact.submit'), [
+            'name' => 'Rudo Chari',
+            'email' => 'rudo@example.com',
+            'message' => 'Not sure yet which part of the lab this needs.',
+        ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('contact_submissions', [
+            'email' => 'rudo@example.com',
+            'department' => null,
+        ]);
+
+        Queue::assertPushed(SendWeb3FormsNotification::class, function (SendWeb3FormsNotification $job): bool {
+            return $job->payload['subject'] === 'New contact form submission';
+        });
+    }
+
     /*
      |----------------------------------------------------------------------
      | Newsletter

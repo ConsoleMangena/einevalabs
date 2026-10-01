@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $category . ' - The Bench | EINEVA Labs')
-@section('description', 'Browse ' . $category . ' at The Bench, the EINEVA Labs equipment store.')
+@section('title', $category . ' - EINEVA Marketplace | EINEVA Labs')
+@section('description', 'Browse ' . $category . ' at EINEVA Marketplace, the EINEVA Labs equipment store.')
 
 @section('content')
 <style>
@@ -104,7 +104,7 @@
     }
 </style>
 
-<a href="{{ route('products.index') }}" class="back-link">&larr; Back to The Bench</a>
+<a href="{{ route('products.index') }}" class="back-link">&larr; Back to EINEVA Marketplace</a>
 
 <div class="store-hero">
     <h1 class="page-title">{{ $category }}</h1>

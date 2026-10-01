@@ -9,7 +9,7 @@
 @section('og_image', asset('assets/images/logos/bizintel2.png'))
 @section('og_image_type', 'image/png')
 
-@section('footer_tagline', 'Cybersecurity Research & Innovation for Africa')
+@section('footer_tagline', 'Technology research, engineering and visualisation for Africa')
 
 @section('content')
     <!-- Product Hero — Bootstrap two-column layout -->
@@ -17,7 +17,7 @@
       <div class="row align-items-center g-5">
         <div class="col-lg-7">          <h1 class="page-title">BizIntel Framework</h1>
                               <p class="hero-desc">
-            <strong>AI-Powered Enterprise Intelligence System</strong> &mdash; BizIntel is an open-source enterprise intelligence platform built on the SiteSurveyor architecture. Using Rust, WebAssembly, and Tauri, it integrates business and geospatial analysis with OpenClaw AI and the Solana blockchain to monitor markets and track operational data.
+            <strong>AI-Powered Enterprise Intelligence System</strong>. BizIntel is an open-source enterprise intelligence platform built on the SiteSurveyor architecture. Using Rust, WebAssembly, and Tauri, it integrates business and geospatial analysis with OpenClaw AI and the Solana blockchain to monitor markets and track operational data.
           </p>
           <div class="hero-actions" style="margin-top: 2rem;">
             <a href="https://bizintel.eineva.co.zw" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" target="_blank" rel="noopener">View Site</a>

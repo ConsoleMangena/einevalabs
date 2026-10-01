@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - The Bench | EINEVA Labs')
+@section('title', $product->name . ' - EINEVA Marketplace | EINEVA Labs')
 @section('description', \Illuminate\Support\Str::limit($product->description, 150))
 
 @section('content')
@@ -70,7 +70,6 @@
         font-size: 1.1rem;
         line-height: 1.7;
         margin-bottom: 2.5rem;
-        white-space: pre-line;
     }
     .specs-table {
         width: 100%;
@@ -146,7 +145,7 @@
 @endphp
 
 <div class="product-detail">
-    <a href="{{ route('products.index') }}" class="back-link">&larr; Back to The Bench</a>
+    <a href="{{ route('products.index') }}" class="back-link">&larr; Back to EINEVA Marketplace</a>
 
     <div class="detail-grid">
         <div class="detail-gallery">
@@ -212,7 +211,7 @@
                 <p class="detail-price detail-price--request">Price on request</p>
             @endif
 
-            <div class="detail-desc">{{ $product->description }}</div>
+            <div class="detail-desc">{!! $product->description !!}</div>
 
             @if(is_array($product->specs) && count($product->specs) > 0)
                 <h2 style="font-family: var(--font-heading); margin-bottom: 1rem; font-size: 1.25rem;">Technical Specifications</h2>

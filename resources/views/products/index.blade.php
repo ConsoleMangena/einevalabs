@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'The Bench - EINEVA Labs')
-@section('description', 'Hardened workstations, secured handsets, lab prototyping hardware, and EINEVA Labs apparel and accessories for security engineers.')
+@section('title', 'EINEVA Marketplace - EINEVA Labs')
+@section('description', 'Hardened workstations, secured handsets, lab prototyping hardware, and apparel for security engineers, software developers, and creators.')
 
 @section('content')
 <style>
@@ -76,8 +76,8 @@
 </style>
 
 <div class="store-hero">
-    <h1 class="page-title">The Bench</h1>
-    <p class="page-sub">Gear we build on and trust in our own lab. Hardened workstations, secured handsets, prototyping hardware, and apparel for security engineers.</p>
+    <h1 class="page-title">EINEVA Marketplace</h1>
+    <p class="page-sub">Gear we build on and trust in our own lab. Hardened workstations, secured handsets, prototyping hardware, and apparel for security engineers, software developers, and creators.</p>
 </div>
 
 <div class="category-grid">

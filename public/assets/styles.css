@@ -97,6 +97,15 @@ img, svg, video { display: block; max-width: 100%; }
   --color-teal-dim:  rgba(45, 212, 191, 0.12);
   --color-teal-bd:   rgba(45, 212, 191, 0.25);
 
+  /* Department accent. Red stays the brand colour for chrome (see --color-red
+     above); teal is the software engineering accent, and violet marks the 3D
+     and motion work. Nothing else uses violet, so a violet tag always reads
+     as "3D". */
+  --color-violet:      #a78bfa;
+  --color-violet-bright: #c4b5fd;
+  --color-violet-dim:  rgba(167, 139, 250, 0.12);
+  --color-violet-bd:   rgba(167, 139, 250, 0.28);
+
   --color-amber:      #eab308;
   --color-amber-dim:  rgba(234, 179, 8, 0.1);
   --color-amber-bd:   rgba(234, 179, 8, 0.2);
@@ -229,6 +238,14 @@ img, svg, video { display: block; max-width: 100%; }
   --color-amber-text: #a16207;
   --color-amber-dim:  rgba(234, 179, 8, 0.12);
   --color-amber-soft: rgba(180, 120, 6, 0.55);
+
+  /* Violet and teal need the same treatment the red gets above: the dark-theme
+     values are too light to hold contrast as text on white. */
+  --color-violet:        #6d28d9;
+  --color-violet-bright: #5b21b6;
+  --color-violet-dim:    rgba(109, 40, 217, 0.09);
+  --color-violet-bd:     rgba(109, 40, 217, 0.26);
+  --color-teal:          #0d9488;
 
   --grad-fill:       linear-gradient(135deg, #b91c1c, #991b1b);
   --grad-fill-hover: linear-gradient(135deg, #991b1b, #7f1d1d);
@@ -959,7 +976,12 @@ h2, h3 { color: var(--color-text); font-weight: 700; }
   line-height: 1.7;
   color: var(--color-text-muted);
 }
-.service-icon { display: none; }
+.service-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: text-bottom;
+  color: var(--color-red-bright);
+}
 
 /* --------------------------------------------------------------------------
    11. Capability accordion
@@ -989,7 +1011,11 @@ h2, h3 { color: var(--color-text); font-weight: 700; }
   background: var(--color-red-dim);
   color: var(--color-red-bright);
 }
-.category-header h2 {
+/* The category title is an h3 inside a department block on the services page
+   and an h2 on the standalone capability pages, so both levels are matched
+   here rather than duplicating the rule. */
+.category-header h2,
+.category-header h3 {
   font-size: inherit;
   font-weight: 600;
   letter-spacing: inherit;
@@ -1020,6 +1046,83 @@ h2, h3 { color: var(--color-text); font-weight: 700; }
   color: var(--color-teal);
   border-color: var(--color-teal-bd);
   background: var(--color-teal-dim);
+}
+
+/* Department tag. Shares the .category-tag shape so the services page has one
+   tag vocabulary, and adds one modifier per department. The slugs match
+   config/departments.php. */
+.dept-tag {
+  padding: 3px 10px;
+  border: 1px solid var(--color-border-hover);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.dept-tag[data-dept='cyber'] {
+  color: var(--color-red-bright);
+  border-color: var(--color-red-border);
+  background: var(--color-red-dim);
+}
+.dept-tag[data-dept='software'] {
+  color: var(--color-teal);
+  border-color: var(--color-teal-bd);
+  background: var(--color-teal-dim);
+}
+.dept-tag[data-dept='three_d'] {
+  color: var(--color-violet-bright);
+  border-color: var(--color-violet-bd);
+  background: var(--color-violet-dim);
+}
+
+/* A department heading on the services page. The accent is a left rule plus a
+   tinted label, never a fill — a filled block would compete with the section
+   it introduces. */
+.dept-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 0.5rem;
+}
+.dept-heading::before {
+  content: '';
+  width: 4px;
+  height: 1.6em;
+  border-radius: 2px;
+  background: var(--dept-accent, var(--color-red));
+  flex-shrink: 0;
+}
+.dept-heading > h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  letter-spacing: -0.02em;
+}
+
+/* Sets the accent for everything inside one department block. Children read
+   var(--dept-accent); the block itself never sets it, so a nested block can
+   override it without a cascade fight. */
+.dept-block[data-dept='cyber'] {
+  --dept-accent: var(--color-red);
+  --dept-accent-text: var(--color-red-bright);
+  --dept-accent-dim: var(--color-red-dim);
+  --dept-accent-bd: var(--color-red-border);
+}
+.dept-block[data-dept='software'] {
+  --dept-accent: var(--color-teal);
+  --dept-accent-text: var(--color-teal);
+  --dept-accent-dim: var(--color-teal-dim);
+  --dept-accent-bd: var(--color-teal-bd);
+}
+.dept-block[data-dept='three_d'] {
+  --dept-accent: var(--color-violet);
+  --dept-accent-text: var(--color-violet-bright);
+  --dept-accent-dim: var(--color-violet-dim);
+  --dept-accent-bd: var(--color-violet-bd);
 }
 
 /* Chevron, drawn rather than shipped as an icon font. */
@@ -1857,14 +1960,14 @@ textarea:focus-visible { outline-offset: 1px; }
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
-  text-align: center;
+  text-align: left;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 .team-card .team-img {
   width: 100px;
   height: 100px;
-  margin: 0 auto 0.9rem;
+  margin: 0 0 0.9rem;
   object-fit: cover;
   border: 2px solid var(--color-red-border);
   border-radius: 50%;
@@ -1882,7 +1985,7 @@ textarea:focus-visible { outline-offset: 1px; }
   justify-content: center;
   width: 100px;
   height: 100px;
-  margin: 0 auto 0.9rem;
+  margin: 0 0 0.9rem;
   font-size: 1.9rem;
   color: var(--color-amber-soft);
   background: var(--color-bg-hover);
@@ -1910,9 +2013,17 @@ textarea:focus-visible { outline-offset: 1px; }
   color: var(--color-red);
   margin-bottom: 0.7rem;
 }
+/* Department tag on a vacancy card. The card is a centred flex column, so the
+   tag is centred rather than left-aligned and shares the status pill's rhythm.
+   align-self is required: without it the span stretches to the full column
+   width and the pill's border wraps the whole card. */
+.team-card .dept-tag {
+  align-self: flex-start;
+  margin-bottom: 0.7rem;
+}
 .team-card .status {
   display: inline-block;
-  align-self: center;
+  align-self: flex-start;
   padding: 0.22rem 0.7rem;
   margin-bottom: 0.7rem;
   font-family: var(--font-heading);
@@ -1941,7 +2052,7 @@ textarea:focus-visible { outline-offset: 1px; }
 .team-card .apply-btn {
   display: inline-flex;
   align-items: center;
-  align-self: center;
+  align-self: flex-start;
   margin-top: 0.9rem;
   padding: 0.5rem 1.2rem;
   background: transparent;
@@ -2305,8 +2416,6 @@ textarea:focus-visible { outline-offset: 1px; }
 .tech-slider-track img {
   height: 48px;
   width: auto;
-  /* Keep the brand colour: greyscaling it cost these logos their contrast
-     against the dark card (WCAG 1.4.11 wants 3:1 for non-text graphics). */
   opacity: 0.85;
   /* Never let a logo's width feed back into the track's own sizing. */
   max-width: none;

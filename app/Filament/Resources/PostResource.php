@@ -24,59 +24,55 @@ class PostResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('title')
-                ->required()
-                ->maxLength(255)
-                // Propose a slug while the author types, but only while the
-                // slug field is still empty so a hand-picked slug is never
-                // overwritten.
-                ->afterStateUpdated(function (?string $state, callable $set, callable $get): void {
-                    if (blank($get('slug'))) {
-                        $set('slug', Str::slug((string) $state));
-                    }
-                }),
+            Forms\Components\Grid::make(3)->schema([
+                Forms\Components\Section::make('Post Details')->schema([
+                    Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->maxLength(255)
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(function (?string $state, callable $set, callable $get): void {
+                            if (blank($get('slug'))) {
+                                $set('slug', \Illuminate\Support\Str::slug((string) $state));
+                            }
+                        }),
 
-            Forms\Components\TextInput::make('slug')
-                ->required()
-                ->maxLength(255)
-                ->helperText('Used as the post URL: /blog/<slug>.')
-                // Typing a slug that already exists previously produced a raw
-                // QueryException on the unique index, i.e. a 500 in the
-                // admin. This turns it into a field-level error instead.
-                ->unique(ignoreRecord: true)
-                ->dehydrateStateUsing(fn (?string $state): string => Str::slug((string) $state))
-                ->placeholder('my-first-post'),
+                    Forms\Components\TextInput::make('slug')
+                        ->required()
+                        ->maxLength(255)
+                        ->helperText('Used as the post URL: /blog/<slug>.')
+                        ->unique(ignoreRecord: true)
+                        ->dehydrateStateUsing(fn (?string $state): string => \Illuminate\Support\Str::slug((string) $state))
+                        ->placeholder('my-first-post'),
 
-            Forms\Components\Textarea::make('excerpt')
-                ->maxLength(1000)
-                ->helperText('Shown on the blog index. Falls back to the start of the content when empty.')
-                ->columnSpanFull(),
+                    Forms\Components\Textarea::make('excerpt')
+                        ->maxLength(1000)
+                        ->helperText('Shown on the blog index. Falls back to the start of the content when empty.')
+                        ->columnSpanFull(),
 
-            Forms\Components\FileUpload::make('image')
-                ->label('Cover image')
-                ->image()
-                // Must be the public disk: the `image` column stores the path
-                // and the views resolve it to /storage/... on the frontend.
-                ->disk('public')
-                ->directory('posts')
-                ->visibility('public')
-                ->imageEditor()
-                ->maxSize(4096),
+                    Forms\Components\RichEditor::make('content')
+                        ->required()
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsDirectory('posts/attachments')
+                        ->fileAttachmentsVisibility('public')
+                        ->columnSpanFull(),
+                ])->columnSpan(2),
 
-            /*
-             * Publishing is a date, not a flag, so a post can be scheduled and
-             * the public index can order on it. Leaving it empty keeps the post
-             * a draft and 404s at /blog/<slug>.
-             */
-            Forms\Components\DateTimePicker::make('published_at')
-                ->label('Publish at')
-                ->seconds(false)
-                ->helperText('Leave empty to keep this post as an unpublished draft.'),
+                Forms\Components\Section::make('Meta')->schema([
+                    Forms\Components\FileUpload::make('image')
+                        ->label('Cover image')
+                        ->image()
+                        ->disk('public')
+                        ->directory('posts')
+                        ->visibility('public')
+                        ->imageEditor()
+                        ->maxSize(4096),
 
-            Forms\Components\Textarea::make('content')
-                ->required()
-                ->rows(20)
-                ->columnSpanFull(),
+                    Forms\Components\DateTimePicker::make('published_at')
+                        ->label('Publish at')
+                        ->seconds(false)
+                        ->helperText('Leave empty to keep this post as an unpublished draft.'),
+                ])->columnSpan(1),
+            ])
         ]);
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Order confirmed - The Bench | EINEVA Labs')
+@section('title', 'Order confirmed - EINEVA Marketplace | EINEVA Labs')
 @section('description', 'Your order has been received and payment confirmed.')
 @section('robots')
   <meta name="robots" content="noindex, nofollow">

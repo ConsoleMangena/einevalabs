@@ -12,7 +12,21 @@ class ContactSubmission extends Model
     protected $fillable = [
         'name',
         'email',
+        'department',
         'subject',
         'message',
     ];
+
+    /**
+     * The department slug a submission arrived against, or null when the
+     * visitor did not choose one.
+     */
+    public function departmentLabel(): ?string
+    {
+        if ($this->department === null) {
+            return null;
+        }
+
+        return config('departments.'.$this->department.'.label');
+    }
 }

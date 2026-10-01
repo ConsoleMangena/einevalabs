@@ -34,6 +34,18 @@ class ViewContactSubmission extends ViewRecord
                             // has to be declared here.
                             ->copyable(),
 
+                        Infolists\Components\TextEntry::make('department')
+                            ->label('Capability')
+                            // Renders the slug through config('departments')
+                            // so the panel shows "Software Engineering" rather
+                            // than the stored value, and shows a dash for rows
+                            // written before the column existed.
+                            ->formatStateUsing(fn (?string $state): ?string => $state === null
+                                ? null
+                                : config('departments.'.$state.'.label', $state))
+                            ->placeholder('Not specified')
+                            ->badge(),
+
                         Infolists\Components\TextEntry::make('subject')
                             ->placeholder('No subject')
                             ->columnSpanFull(),

@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow">
 @endsection
 
-@section('footer_tagline', 'Cybersecurity Research & Innovation for Africa')
+@section('footer_tagline', 'Technology research, engineering and visualisation for Africa')
 
 @section('content')
     <div class="logo">

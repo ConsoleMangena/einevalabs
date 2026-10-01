@@ -34,10 +34,18 @@ class SendWeb3FormsNotification implements ShouldQueue
 
     public static function forContactSubmission(ContactSubmission $submission): self
     {
+        // Prefixed onto the subject so an enquiry can be routed to the right
+        // department without opening the site or reading the message body.
+        $subject = $submission->subject ?: 'New contact form submission';
+
+        if ($department = $submission->departmentLabel()) {
+            $subject = '['.$department.'] '.$subject;
+        }
+
         return new self([
             'email' => $submission->email,
             'name' => $submission->name,
-            'subject' => $submission->subject ?: 'New contact form submission',
+            'subject' => $subject,
             'message' => $submission->message,
         ]);
     }

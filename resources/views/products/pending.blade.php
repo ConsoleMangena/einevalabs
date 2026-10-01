@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($failed ?? false ? 'Payment not completed' : 'Confirming your payment') . ' - The Bench | EINEVA Labs')
+@section('title', ($failed ?? false ? 'Payment not completed' : 'Confirming your payment') . ' - EINEVA Marketplace | EINEVA Labs')
 @section('description', $failed ?? false ? 'The payment provider reported that the payment was not completed.' : 'We are confirming your payment with the provider.')
 @section('robots')
   <meta name="robots" content="noindex, nofollow">

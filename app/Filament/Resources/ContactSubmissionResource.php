@@ -39,6 +39,13 @@ class ContactSubmissionResource extends Resource
                 ->required()
                 ->maxLength(255),
 
+            Forms\Components\Select::make('department')
+                ->options(collect(config('departments', []))
+                    ->mapWithKeys(fn (array $dept): array => [$dept['slug'] => $dept['label']])
+                    ->all())
+                ->default(null)
+                ->disabled(),
+
             Forms\Components\TextInput::make('subject')
                 ->maxLength(255)
                 ->default(null),
@@ -58,6 +65,15 @@ class ContactSubmissionResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->description(fn (ContactSubmission $record): ?string => $record->email),
+
+                Tables\Columns\TextColumn::make('department')
+                    ->label('Capability')
+                    ->formatStateUsing(fn (?string $state): ?string => $state === null
+                        ? null
+                        : config('departments.'.$state.'.label', $state))
+                    ->placeholder('—')
+                    ->sortable()
+                    ->toggleable(),
 
                 Tables\Columns\TextColumn::make('subject')
                     ->searchable()
@@ -83,6 +99,12 @@ class ContactSubmissionResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('department')
+                    ->options(collect(config('departments', []))
+                        ->mapWithKeys(fn (array $dept): array => [$dept['slug'] => $dept['label']])
+                        ->all())
+                    ->placeholder('All capabilities'),
+
                 Tables\Filters\TernaryFilter::make('has_subject')
                     ->label('Has a subject')
                     // A TernaryFilter's state is an array keyed "value", not
