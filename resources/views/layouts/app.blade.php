@@ -54,40 +54,14 @@
 
   gtag('config', 'G-LWDW7M7KBX');
 </script>
-<!-- Theme: applied before first paint so a light-theme visitor never
-     sees a dark flash. Blocking and inline on purpose - deferring it to
-     loader.js would show the wrong theme for at least one frame. -->
-<script>
-(function () {
-  var t;
-  try { t = localStorage.getItem('eineva-theme'); } catch (e) {}
-  if (!t) {
-    t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
-  }
-  if (t === 'light') document.documentElement.classList.add('lm');
-  var m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.setAttribute('content', t === 'light' ? '#f7f7fa' : '#0a0a0f');
-})();
-</script>
+
 </head>
 
 <body>
   <nav class="topbar" aria-label="Primary">
     <div class="topbar__inner">
       <a href="{{ route('home') }}" class="topbar__brand" aria-label="EINEVA Labs home"><img src="{{ asset('assets/logo/einevalabs.png') }}" alt="" width="32" height="32"><span>EINEVA <span class="brand-accent">LABS</span></span></a>
-      {{--
-          The toggle is a sibling of the brand and the hamburger, NOT a child
-          of #navLinks. It used to live inside the menu, and because
-          .topbar__menu is a Bootstrap .collapse that is display:none on
-          mobile, the only way to leave dark mode on a phone was to open the
-          menu first. styles.css already declares order:2 for the toggle and
-          order:3 for the hamburger, which only has an effect out here at the
-          top level of the flex row.
-      --}}
-      <button class="topbar__theme" id="thbtn" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">
-        <svg class="topbar__theme-icon topbar__theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
-        <svg class="topbar__theme-icon topbar__theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6 8.6 8.6 0 1 0 20.4 14.2Z"/></svg>
-      </button>
+
       <button class="topbar__toggle" type="button" aria-label="Toggle navigation menu" aria-controls="navLinks" aria-expanded="false"><span></span></button>
       <div class="collapse topbar__menu" id="navLinks">
         <ul class="topbar__list">

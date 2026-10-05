@@ -191,81 +191,7 @@ img, svg, video { display: block; max-width: 100%; }
   --grain-opacity: 0.022;
 }
 
-/* --------------------------------------------------------------------------
-   2b. Light theme
-   --------------------------------------------------------------------------
-   Applied as a class on <html> by assets/loader.js, the same mechanism the
-   NexusAI build uses. Only the neutral roles move: the red/teal/amber brand
-   is untouched, so the site keeps its identity in both themes. Shadows are
-   retuned rather than dropped, because a card that only changes colour
-   reads as flat on a light page.
-   -------------------------------------------------------------------------- */
-.lm {
-  --color-bg:          #f7f7fa;
-  --color-bg-elevated: #ffffff;
-  --color-bg-card:     #ffffff;
-  --color-bg-hover:    #f1f1f6;
-  --color-bg-sunken:   #f4f4f8;
 
-  --color-text:       #1c1c26;
-  --color-text-dim:   #55556a;
-  --color-text-muted: #6b6b82;
-  --color-heading:    #0b0b14;
-  --color-on-brand:   #ffffff;
-
-  --color-border:       rgba(11, 11, 16, 0.09);
-  --color-border-hover: rgba(11, 11, 16, 0.16);
-
-  --color-nav:        rgba(255, 255, 255, 0.82);
-  --color-nav-solid:  rgba(255, 255, 255, 0.98);
-  --color-nav-scrolled: rgba(255, 255, 255, 0.94);
-  --color-nav-text:   #1c1c26;
-  --color-brand-text: #0b0b14;
-  --color-icon:       #4a4a5e;
-  --color-placeholder: #9a9aad;
-  --color-scrollbar:  #d3d3dd;
-  --color-scrollbar-hover: #b9b9c7;
-  --color-selection:  rgba(239, 68, 68, 0.85);
-  --color-separator:  #c2c2ce;
-
-  /* Brand fills need a deeper red on white to hold their contrast. */
-  --color-red:        #dc2626;
-  --color-red-bright: #b91c1c;
-  --color-red-dim:    rgba(239, 68, 68, 0.09);
-  --color-red-dim-strong: rgba(220, 38, 38, 0.13);
-  --color-red-glow:   rgba(239, 68, 68, 0.22);
-  --color-red-border: rgba(220, 38, 38, 0.28);
-  --color-amber-text: #a16207;
-  --color-amber-dim:  rgba(234, 179, 8, 0.12);
-  --color-amber-soft: rgba(180, 120, 6, 0.55);
-
-  /* Violet and teal need the same treatment the red gets above: the dark-theme
-     values are too light to hold contrast as text on white. */
-  --color-violet:        #6d28d9;
-  --color-violet-bright: #5b21b6;
-  --color-violet-dim:    rgba(109, 40, 217, 0.09);
-  --color-violet-bd:     rgba(109, 40, 217, 0.26);
-  --color-teal:          #0d9488;
-
-  --grad-fill:       linear-gradient(135deg, #b91c1c, #991b1b);
-  --grad-fill-hover: linear-gradient(135deg, #991b1b, #7f1d1d);
-
-  --shadow-nav:   0 4px 24px rgba(11, 11, 16, 0.07);
-  --shadow-card:  0 14px 38px rgba(11, 11, 16, 0.1);
-  --shadow-panel: 0 24px 60px rgba(11, 11, 16, 0.16);
-  --shadow-fab:   0 8px 24px rgba(11, 11, 16, 0.18);
-  --shadow-fab-hover: 0 12px 30px rgba(11, 11, 16, 0.22);
-  --shadow-drop:  0 18px 44px rgba(220, 38, 38, 0.18);
-  --shadow-drop-soft: 0 12px 30px rgba(220, 38, 38, 0.16);
-  --shadow-drop-lg: 0 24px 56px rgba(11, 11, 16, 0.16);
-  --shadow-drop-lg-hover: 0 28px 64px rgba(11, 11, 16, 0.18);
-  --shadow-card-inset: 0 10px 30px rgba(11, 11, 16, 0.08);
-
-  --aurora: radial-gradient(680px circle at 10% -8%,  rgba(239, 68, 68, 0.1), transparent 68%),
-            radial-gradient(560px circle at 94% 6%,   rgba(45, 212, 191, 0.07), transparent 68%),
-            radial-gradient(720px circle at 48% 110%, rgba(239, 68, 68, 0.05), transparent 70%);
-  --grain-opacity: 0.014;
-}
 
 /* --------------------------------------------------------------------------
    3. Bootstrap remap
@@ -956,7 +882,6 @@ h2, h3 { color: var(--color-text); font-weight: 700; }
   transform: translateY(-3px);
   box-shadow: var(--shadow-card);
 }
-
 /* Nested cards sit on a sunken surface so they read inside their parent. */
 .service {
   background: var(--color-bg-sunken);
