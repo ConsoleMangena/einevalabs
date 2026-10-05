@@ -18,7 +18,7 @@
 
     <div class="team-grid">
       <div class="team-card">
-        <div class="placeholder-img" aria-hidden="true">+</div>
+        <img src="{{ asset('assets/images/profile/tpt.jpeg') }}" alt="Tatenda Mangena, Founder and Chief Executive Officer" class="team-img" width="100" height="100" loading="lazy">
         <h3 class="name">Tatenda Mangena</h3>
         <p class="role">Founder &amp; Chief Executive Officer</p>
         <div style="display: flex; gap: 0.5rem; margin-bottom: 0.7rem; align-items: center;">
@@ -28,9 +28,9 @@
       </div>
 
       <div class="team-card">
-        <img src="{{ asset('assets/images/profile/founder2.jpg') }}" alt="Consolation Mangena, Co-Founder and Chief Technology Officer" class="team-img" width="100" height="100" loading="lazy">
+        <img src="{{ asset('assets/images/profile/founder2.jpg') }}" alt="Consolation Mangena, Co-Founder and Chief Technical Officer" class="team-img" width="100" height="100" loading="lazy">
         <h3 class="name">Consolation Mangena</h3>
-        <p class="role">Co-Founder &amp; Chief Technology Officer</p>
+        <p class="role">Co-Founder &amp; Chief Technical Officer</p>
         <div style="display: flex; gap: 0.5rem; margin-bottom: 0.7rem; align-items: center;">
           <span class="status filled" style="margin-bottom: 0;">Filled</span>
         </div>
